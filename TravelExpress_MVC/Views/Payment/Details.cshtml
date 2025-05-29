@@ -1,0 +1,20 @@
+﻿@model TravelExpress.Models.Payment
+
+
+@{
+	ViewBag.Title = "Payment Details";
+}
+
+<h2> Payment Details </h2>
+
+<div>
+	<p><strong>Payment Date:</strong> @Model.PaymentDate.ToShortDateString() </p>
+	<p><strong> Method</strong> @Model.PaymentMethod</p>
+	<p><strong> Amount </strong> @Model.Amount</p>
+</div>
+
+
+
+<a asp-controller="Booking" asp-action="Details" asp-route-id="@Model.BookingId" class="btn btn-secondary"> Back to Booking </a>
+
+

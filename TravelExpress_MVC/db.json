@@ -1,0 +1,29 @@
+{
+    "hotels": [
+        {
+            "HotelId": 1,
+            "Name": "Paradise Resort",
+            "Location": "Goa"
+        },
+        {
+            "HotelId": 2,
+            "Name": "Sunshine Castle",
+            "Location": "Kerala"
+        },
+        {
+            "HotelId": 3,
+            "Name": "Dreams of Heaven",
+            "Location": "San Fransisco"
+        },
+        {
+            "HotelId": 4,
+            "Name": "Fantastico de Hotel",
+            "Location": "Barcelona"
+        },
+        {
+            "HotelId": 5,
+            "Name": "Boulevard of Dreams",
+            "Location": "Paris"
+        }
+    ]
+}

@@ -1,0 +1,35 @@
+﻿
+@model TravelExpress.Models.Room
+
+<h2> Room Details </h2>
+
+
+<div>
+	<h4> @Model.RoomNumber</h4>
+	<hr />
+	<dl class="row">
+		<dd class="col-sm-3"> Room Type </dd>
+		<dt class="col-sm-9"> @Model.RoomType </dt>
+
+		<dd class="col-sm-3"> Price Per Night </dd>
+		<dt class="col-sm-9"> @Model.PricePerNight </dt>
+
+		
+	</dl>
+</div>
+
+<a href="@Url.Action("Index",new{hotelId=Model.HotelId})" class="btn btn-secondary"> Back to List </a>
+
+@if (Model.Bookings == null || !Model.Bookings.Any())
+{
+	<a a asp-controller="Booking" asp-action="Create" asp-route-roomId="@Model.RoomId" class="btn btn-success"> Book this Room </a>
+}
+else
+{
+	var latestBooking = Model.Bookings.OrderByDescending(b => b.checkIn).FirstOrDefault();
+	if(latestBooking!=null)
+	
+	{
+		<a asp-controller="Booking" asp-action="Details" asp-route-id="@latestBooking.BookingId" class="btn btn-info"> View Booking </a>
+	}
+}

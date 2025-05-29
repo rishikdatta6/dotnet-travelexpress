@@ -1,0 +1,28 @@
+﻿@model List<TravelExpress.Models.HotelApi>
+
+<h1> All Hotels </h1>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>HotelId</th>
+			<th>Name</th>
+			<th>Location</th>
+             <th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach(var hotel in Model)
+		{
+			<tr>
+				<td> @hotel.HotelId</td>
+				<td> @hotel.Name</td>
+				<td> @hotel.Location</td>
+				<td>
+					<a asp-action="Details" asp-route-id="@hotel.HotelId"> View Details</a>
+			    </td>
+			</tr>
+		}
+	</tbody>
+</table>
+

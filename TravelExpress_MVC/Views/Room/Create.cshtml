@@ -1,0 +1,23 @@
+﻿@model TravelExpress.Models.Room
+
+<h2> Create Room </h2>
+
+<form asp-action="Create">
+	<input type="hidden" asp-for="HotelId" />
+	<div class="form-group">
+		<label asp-for="RoomNumber"></label>
+		<input asp-for="RoomNumber" class="form-control"></input>
+		<span asp-validation-for="RoomNumber" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="RoomType"></label>
+		<input asp-for="RoomType" class="form-control"></input>
+	</div>
+	<div class="form-group">
+		<label asp-for="PricePerNight"></label>
+		<input asp-for="PricePerNight" class="form-control"></input>
+		<span asp-validation-for="PricePerNight" class="text-danger"></span>
+	</div>
+	<button type="submit" class="btn btn-primary"> Create </button>
+	<a asp-action="Index" asp-route-hotelId="@Model.HotelId" class="btn btn-secondary"> Cancel </a>
+</form>
