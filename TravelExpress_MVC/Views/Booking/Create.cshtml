@@ -4,72 +4,86 @@
 	ViewBag.Title = "Create Booking";
 }
 
+<h2>Create Booking</h2>
 
-<h2> Create Booking </h2>
-
-
-<form asp-action="Create" method="post">
+<form asp-action="Create" method="post" id="bookingForm">
+	@Html.AntiForgeryToken()
 	<input type="hidden" asp-for="RoomId" />
-	<input type="hidden" asp-for="HotelId"/>
 
 	<div class="form-group">
-		<label asp-for="checkIn"></label>
-		<input asp-for="checkIn" id="checkIn" class="form-control" type="date" />
-		<span asp-validation-for="checkIn" class="text-danger"></span>
+		<label asp-for="CheckIn"></label>
+		<input asp-for="CheckIn" id="CheckIn" class="form-control" type="date" />
+		<span asp-validation-for="CheckIn" class="text-danger"></span>
 	</div>
 
 	<div class="form-group">
-		<label asp-for="checkOut"></label>
-		<input asp-for="checkOut" id="checkOut" class="form-control" type="date" />
-		<span asp-validation-for="checkOut" class="text-danger"></span>
+		<label asp-for="CheckOut"></label>
+		<input asp-for="CheckOut" id="CheckOut" class="form-control" type="date" />
+		<span asp-validation-for="CheckOut" class="text-danger"></span>
 	</div>
 
-	
 	<div id="availabiltyStatus" class="mt-2 text-info"></div>
 
-<button type="submit" class="btn btn-primary"> Book Now </button>
-<a asp-action="Details" asp-controller="Room" asp-route-id="@Model.RoomId" class="btn btn-secondary"> Cancel </a>
+	<button type="submit" class="btn btn-primary" id="submitBtn">Book Now</button>
+	<a asp-action="Details" asp-controller="Room" asp-route-id="@Model.RoomId" class="btn btn-secondary">Cancel</a>
 </form>
 
 @section Scripts {
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const checkInInput = document.getElementById('checkIn');
-            const checkOutInput = document.getElementById('checkOut');
-            const statusDiv = document.getElementById('availabiltyStatus');
-            const roomId = '@Model.RoomId';
+	<!-- Client-side validation support -->
+	<partial name="_ValidationScriptsPartial" />
 
-            function areBothDatesFilled() {
-                return checkInInput.value && checkOutInput.value;
-            }
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const CheckInInput = document.getElementById('CheckIn');
+			const CheckOutInput = document.getElementById('CheckOut');
+			const statusDiv = document.getElementById('availabiltyStatus');
+			const roomId = '@Model.RoomId';
 
-            async function checkAvailability() {
-                if (!areBothDatesFilled()) {
-                    statusDiv.textContent = '';
-                    return;
-                }
+			function areBothDatesFilled() {
+				return CheckInInput.value && CheckOutInput.value;
+			}
 
-                const checkIn = checkInInput.value;
-                const checkOut = checkOutInput.value;
+			async function checkAvailability() {
+				if (!areBothDatesFilled()) {
+					statusDiv.textContent = '';
+					return;
+				}
 
-                try {
-                    const response = await fetch(`/Booking/CheckAvailability?roomId=${roomId}&checkIn=${checkIn}&checkOut=${checkOut}`);
-                    const data = await response.json();
+				const CheckIn = CheckInInput.value;
+				const CheckOut = CheckOutInput.value;
 
-                    if (!data.available) {
-                        statusDiv.textContent = 'Booked';
-                        statusDiv.style.color = 'red';
-                    } else {
-                        statusDiv.textContent = '';
-                    }
-                } catch (error) {
-                    console.error('Error checking availability:', error);
-                    statusDiv.textContent = '';
-                }
-            }
+				try {
+					const response = await fetch(`/Booking/CheckAvailability?roomId=${roomId}&CheckIn=${CheckIn}&CheckOut=${CheckOut}`);
+					const data = await response.json();
 
-            checkInInput.addEventListener('change', checkAvailability);
-            checkOutInput.addEventListener('change', checkAvailability);
-        });
-    </script>
+					if (!data.available) {
+						statusDiv.textContent = 'This room is already booked for selected dates.';
+						statusDiv.style.color = 'red';
+					} else {
+						statusDiv.textContent = 'Room is available!';
+						statusDiv.style.color = 'green';
+					}
+				} catch (error) {
+					console.error('Error checking availability:', error);
+					statusDiv.textContent = '';
+				}
+			}
+
+			CheckInInput.addEventListener('change', checkAvailability);
+			CheckOutInput.addEventListener('change', checkAvailability);
+		});
+	</script>
+
+	<script>
+		document.getElementById('bookingForm').addEventListener('submit', function (e) {
+			const form = this;
+			const submitBtn = document.getElementById('submitBtn');
+
+			// Only disable if valid
+			if (form.checkValidity()) {
+				submitBtn.disabled = true;
+				submitBtn.textContent = "Processing...";
+			}
+		});
+	</script>
 }

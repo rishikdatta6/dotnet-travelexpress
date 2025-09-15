@@ -6,32 +6,73 @@
 	var roomNumber = ViewBag.RoomNumber;
 }
 
-<h2> Bookings for Room </h2>
+<h2>Bookings for Room @roomNumber</h2>
 
-<a class="btn btn-primary" href="@Url.Action("Create","Booking",new{roomId=roomId})"> Add Booking </a>
+@if (roomId != null)
+{
+	<a class="btn btn-primary mb-3" href="@Url.Action("Create", "Booking", new { roomId = roomId })">Add Booking</a>
+}
 
-<table class="table">
+<table class="table table-striped">
 	<thead>
 		<tr>
-			<th> Check-In </th>
-			<th> Check-Out </th>
-			<th> Actions </th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach(var booking in Model)
+			<th>Check-In</th>
+			<th>Check-Out</th>
+			<th>Total Amount</th>
+			<th>Actions</th>
+        </tr>@using Microsoft.AspNetCore.Identity
+        @inject SignInManager<ApplicationUser> SignInManager
+        @inject UserManager<ApplicationUser> UserManager
+
+        @{
+            var isAdmin = User.IsInRole("Admin");
+        }
+
+        <table class="table">
+            <thead>
+                <tr>
+                    @if (isAdmin)
+                    {
+                        <th>User</th>
+                    }
+                    <th>Room</th>
+                    <th>CheckIn</th>
+                    <th>CheckOut</th>
+                    <th>Total Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var booking in Model)
+                {
+                    <tr>
+                        @if (isAdmin)
+                        {
+                            <td>@booking.User?.UserName</td>
+                        }
+                        <td>@booking.Room?.RoomNumber</td>
+                        <td>@booking.CheckIn.ToShortDateString()</td>
+                        <td>@booking.CheckOut.ToShortDateString()</td>
+                        <td>₹@booking.TotalAmount</td>
+                        <td>
+                            <a class="btn btn-info btn-sm" href="@Url.Action("Details", "Booking", new { id = booking.BookingId })">Details</a>
+                        </td>
+                    </tr>
+                }
+          </thead>
+          <tbody>
+	
+		@foreach (var booking in Model)
 		{
 			<tr>
-				<td> @booking.checkIn.ToShortDateString()</td>
-				<td> @booking.checkOut.ToShortDateString()</td>
-				<td> 
-					<a href="@Url.Action("Details","Booking",new{id=booking.BookingId})" class="btn btn-info sm"> Details </a>
+				<td>@booking.CheckIn.ToShortDateString()</td>
+				<td>@booking.CheckOut.ToShortDateString()</td>
+				<td>₹@booking.TotalAmount</td>
+				<td>
+					<a href="@Url.Action("Details", "Booking", new { id = booking.BookingId })" class="btn btn-info btn-sm">Details</a>
 				</td>
 			</tr>
-			
 		}
 	</tbody>
+    
 </table>
-
-
-

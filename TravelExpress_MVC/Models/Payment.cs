@@ -9,8 +9,8 @@ namespace TravelExpress.Models
 
         [Required]
         public DateTime PaymentDate { get; set; }
-
-        public string PaymentMethod {  get; set; }
+        [Required]
+        public string PaymentMethod { get; set; } = string.Empty;
 
         [Required]
         public decimal Amount {  get; set; }

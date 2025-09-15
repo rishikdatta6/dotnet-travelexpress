@@ -1,25 +1,25 @@
 ﻿@model TravelExpress.Models.Room
 
+@{
+    ViewData["Title"] = "Delete Room";
+}
 
-<h2> Delete Room </h2>
 
-<div>
-	<h4> Do you want to delete this room? </h4>
-		<hr />
-		<dl class="row">
-			<dd class="col sm-3"> RoomNumber </dd>
-			<dt class="col sm-9"> @Model.RoomNumber </dt>
 
-			<dd class="col sm-3"> RoomType </dd>
-			<dt class="col sm-9"> @Model.RoomType </dt>
+<h4 class="mb-4 text-center">Are you sure you want to delete this room?</h4>
 
-			<dd class="col sm-3"> PricePerNight </dd>
-			<dt class="col sm-9"> @Model.PricePerNight </dt>
-		</dl>
+<div style="border: 1px solid #ccc; border-radius: 6px; padding: 16px; background-color: #f9f9f9; display: flex; justify-content: space-between; align-items: center; gap: 24px;">
+    <div><strong>Room No:</strong> @Model.RoomNumber</div>
+    <div><strong>Type:</strong> @Model.RoomType</div>
+    <div><strong>Price:</strong> ₹@Model.PricePerNight</div>
 </div>
 
-<form asp-action="Delete" method="post">
-	<input type="hidden" asp-for="RoomId" />
-	<button type="submit" class="btn btn-danger"> Delete </button>
-	<a asp-action="Index" asp-route-hotelId="@Model.HotelId" class="btn btn-secondary"> Cancel </a>
-</form>
+
+
+<div class="text-center mt-4">
+    <form asp-action="Delete" class="d-inline">
+        <input type="hidden" asp-for="RoomId" />
+        <button type="submit" class="btn btn-danger me-2">Delete</button>
+    </form>
+    <a asp-action="Index" asp-route-hotelId="@Model.HotelId" class="btn btn-secondary">Cancel</a>
+</div>

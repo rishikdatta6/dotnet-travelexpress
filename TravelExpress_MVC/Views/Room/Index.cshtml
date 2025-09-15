@@ -1,41 +1,50 @@
 ﻿@model IEnumerable<TravelExpress.Models.Room>
 
 @{
-	ViewBag.Title = "Rooms";
-	var hotelId = ViewBag.HotelId;
+    ViewBag.Title = "Rooms";
+    var hotelId = ViewBag.HotelId;
+    var isAdmin = User.IsInRole("Admin");
 }
 
+<h2>Rooms</h2>
 
-<h2> Rooms </h2>
+@if (isAdmin)
+{
+        
 
-<a href="@Url.Action("Create","Room",new{hotelId=hotelId})" class="btn btn-primary"> Add Rooms </a>
+    <a href="@Url.Action("Create", "Room", new { hotelId = hotelId })" class="btn btn-primary mb-2">Add Room</a>
 
+}
 
-<table class="table">
-	<thead>
-		<tr>
-			<th> Room Number </th>
-			<th> Room Type </th>
-			<th> Price Per Night </th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var room in Model)
-		{
-			<tr>
-				<td> @room.RoomNumber</td>
-				<td> @room.RoomType </td>
-				<td> @room.PricePerNight</td>
-				<td>
-					<a href="@Url.Action("Details",new{id=room.RoomId})" class="btn btn-info btn-sm"> Details </a>
-					<a href="@Url.Action("Edit",new{id=room.RoomId})" class="btn btn-warning btn-sm"> Edit </a>
-					<a href="@Url.Action("Delete",new{id=room.RoomId})" class="btn btn-danger btn-sm"> Delete </a>
-					<a href="@Url.Action("Index", "Booking", new { roomId = room.RoomId })" class="btn btn-outline-secondary btn-sm">Bookings</a>
-				</td>
-			</tr>
-		}
-	</tbody>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Room Number</th>
+            <th>Room Type</th>
+            <th>Price Per Night</th>
+            @if (isAdmin)
+            {
+                <th>Actions</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var room in Model)
+        {
+            <tr>
+                <td>@room.RoomNumber</td>
+                <td>@room.RoomType</td>
+                <td>₹@room.PricePerNight</td>
+                @if (isAdmin)
+                {
+                    <td>
+                        <a href="@Url.Action("Details", new { id = room.RoomId })" class="btn btn-info btn-sm">Details</a>
+                        <a href="@Url.Action("Edit", new { id = room.RoomId })" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="@Url.Action("Delete", new { id = room.RoomId })" class="btn btn-danger btn-sm">Delete</a>
+                        @*<a href="@Url.Action("Index", "Booking", new { roomId = room.RoomId })" class="btn btn-outline-secondary btn-sm">Bookings</a>*@
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
 </table>
-
-

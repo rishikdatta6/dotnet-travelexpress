@@ -1,0 +1,39 @@
+﻿@model IEnumerable<TravelExpress.Models.Payment>
+
+@{
+    ViewData["Title"] = "All Payments";
+}
+
+<h2 class="mt-3 mb-4">💳 All Payments</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No payments recorded yet.</div>
+}
+else
+{
+    <table class="table table-bordered shadow-sm">
+        <thead style="background-color: green; color: white;">
+            <tr>
+                <th>User</th>
+                <th>Room No</th>
+                <th>Amount Paid</th>
+                <th>Payment Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var payment in Model)
+            {
+                <tr>
+                    <td>@payment.Booking?.User?.UserName</td>
+                    <td>@payment.Booking?.Room?.RoomNumber</td>
+                    <td>₹@payment.Amount</td>
+                    <td>@payment.PaymentDate.ToString("dd MMM yyyy hh:mm tt")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<a asp-controller="Hotel" asp-action="Index" class="btn btn-secondary">Back to Dashboard</a>
+
+

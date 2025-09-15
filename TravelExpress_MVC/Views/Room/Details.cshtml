@@ -1,35 +1,15 @@
-﻿
-@model TravelExpress.Models.Room
+﻿@model TravelExpress.Models.Room
 
-<h2> Room Details </h2>
+<h2 class="text-centre">Room Details</h2>
 
-
-<div>
-	<h4> @Model.RoomNumber</h4>
-	<hr />
-	<dl class="row">
-		<dd class="col-sm-3"> Room Type </dd>
-		<dt class="col-sm-9"> @Model.RoomType </dt>
-
-		<dd class="col-sm-3"> Price Per Night </dd>
-		<dt class="col-sm-9"> @Model.PricePerNight </dt>
-
-		
-	</dl>
+<div class="card mt-3">
+    <div class="card-body">
+        <p class="card-text"><strong>Room Number:</strong> @Model.RoomNumber</p>
+        <p class="card-text"><strong>Room Type:</strong> @Model.RoomType</p>
+        <p class="card-text"><strong>Price Per Night:</strong> ₹@Model.PricePerNight</p>
+        <p class="card-text"><strong>Hotel Name:</strong> @ViewBag.HotelName</p>
+        <p class="card-text"><strong>Location:</strong> @ViewBag.HotelLocation</p>
+    </div>
 </div>
 
-<a href="@Url.Action("Index",new{hotelId=Model.HotelId})" class="btn btn-secondary"> Back to List </a>
-
-@if (Model.Bookings == null || !Model.Bookings.Any())
-{
-	<a a asp-controller="Booking" asp-action="Create" asp-route-roomId="@Model.RoomId" class="btn btn-success"> Book this Room </a>
-}
-else
-{
-	var latestBooking = Model.Bookings.OrderByDescending(b => b.checkIn).FirstOrDefault();
-	if(latestBooking!=null)
-	
-	{
-		<a asp-controller="Booking" asp-action="Details" asp-route-id="@latestBooking.BookingId" class="btn btn-info"> View Booking </a>
-	}
-}
+<a asp-action="Index" asp-route-hotelId="@Model.HotelId" class="btn btn-secondary mt-3">Back to List</a>

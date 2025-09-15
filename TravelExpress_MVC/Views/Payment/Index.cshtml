@@ -1,0 +1,31 @@
+﻿@{
+    var isAdmin = User.IsInRole("Admin");
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            @if (isAdmin)
+            {
+                <th>User</th>
+            }
+            <th>Room</th>
+            <th>Amount</th>
+            <th>Payment Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var payment in Model)
+        {
+            <tr>
+                @if (isAdmin)
+                {
+                    <td>@payment.Booking?.User?.UserName</td>
+                }
+                <td>@payment.Booking?.Room?.RoomNumber</td>
+                <td>₹@payment.Amount</td>
+                <td>@payment.PaymentDate.ToString("dd MMM yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>

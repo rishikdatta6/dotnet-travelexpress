@@ -51,7 +51,8 @@ namespace TravelExpress.Services
         public async Task<HotelApi> GetHotelByIdAsync(int id)
         {
             var hotels = await GetHotelsAsync();
-            return hotels.FirstOrDefault(h => h.HotelId == id);
+            return hotels?.FirstOrDefault(h => h.HotelId == id);
         }
+
     }
 }

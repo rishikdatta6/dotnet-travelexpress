@@ -2449,7 +2449,7 @@ function addCombinator( matcher, combinator, base ) {
 							// Reuse newcache so results back-propagate to previous elements
 							uniqueCache[ key ] = newCache;
 
-							// A match means we're done; a fail means we have to keep checking
+							// A match means we're done; a fail means we have to keep CheckIng
 							if ( ( newCache[ 2 ] = matcher( elem, context, xml ) ) ) {
 								return true;
 							}

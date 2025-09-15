@@ -1,0 +1,15 @@
+﻿@model TravelExpress.ViewModels.PaymentWithHotelViewModel
+
+<div class="container mt-5">
+    <h2 class="text-success mb-4">Payment Successful!</h2>
+
+    <table class="table table-bordered">
+        <tr><th>Hotel</th><td>@Model.HotelName</td></tr>
+        <tr><th>Room Number</th><td>@Model.RoomNumber</td></tr>
+        <tr><th>Amount</th><td>₹@Model.Amount</td></tr>
+        <tr><th>Payment Method</th><td>@Model.PaymentMethod</td></tr>
+        <tr><th>Payment Date</th><td>@Model.PaymentDate.ToString("dd MMM yyyy hh:mm tt")</td></tr>
+    </table>
+
+    <a asp-controller="Hotel" asp-action="Index" class="btn btn-secondary">Back to Dashboard</a>
+</div>

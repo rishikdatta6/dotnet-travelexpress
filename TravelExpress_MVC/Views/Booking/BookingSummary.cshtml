@@ -1,0 +1,36 @@
+﻿@model TravelExpress.ViewModels.BookingWithHotelViewModel
+
+@{
+    ViewData["Title"] = "Booking Summary";
+}
+
+<div class="container mt-5">
+    <h2>Booking Summary</h2>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">Hotel</dt>
+        <dd class="col-sm-9">@Model.HotelName</dd>
+
+        <dt class="col-sm-3">Room Type</dt>
+        <dd class="col-sm-9">@Model.RoomType</dd>
+
+        <dt class="col-sm-3">Room Number</dt>
+        <dd class="col-sm-9">@Model.RoomNumber</dd>
+
+        <dt class="col-sm-3">Check-In</dt>
+        <dd class="col-sm-9">@Model.CheckIn.ToString("dd MMM yyyy")</dd>
+
+        <dt class="col-sm-3">Check-Out</dt>
+        <dd class="col-sm-9">@Model.CheckOut.ToString("dd MMM yyyy")</dd>
+
+        <dt class="col-sm-3">Total Amount</dt>
+        <dd class="col-sm-9">₹@Model.TotalAmount</dd>
+
+        <dt class="col-sm-3">Booking Date</dt>
+        <dd class="col-sm-9">@Model.BookingDate.ToString("dd MMM yyyy, hh:mm tt")</dd>
+    </dl>
+
+    <a asp-controller="Payment" asp-action="Create" asp-route-bookingId="@Model.BookingId" class="btn btn-primary">
+        Proceed to Payment
+    </a>
+</div>

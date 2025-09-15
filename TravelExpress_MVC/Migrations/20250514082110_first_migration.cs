@@ -28,8 +28,8 @@ namespace TravelExpress.Migrations
                 {
                     BookingId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    checkIn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    checkOut = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CheckIn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CheckOut = table.Column<DateTime>(type: "datetime2", nullable: false),
                     HotelId = table.Column<int>(type: "int", nullable: false),
                     RoomId = table.Column<int>(type: "int", nullable: false)
                 },

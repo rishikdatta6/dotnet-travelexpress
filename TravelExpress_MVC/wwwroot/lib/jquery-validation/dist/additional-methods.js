@@ -98,7 +98,7 @@ $.validator.addMethod( "accept", function( value, element, param ) {
 				.replace( /,/g, "|" )
 				.replace( /\/\*/g, "/.*" );
 
-		// Check if the element has a FileList before checking each file
+		// Check if the element has a FileList before CheckIng each file
 		if ( element.files && element.files.length ) {
 			regex = new RegExp( ".?(" + typeParam + ")$", "i" );
 			for ( i = 0; i < element.files.length; i++ ) {
@@ -297,7 +297,7 @@ $.validator.addMethod( "cnhBR", function( value ) {
   // Removing special characters from value
   value = value.replace( /([~!@#$%^&*()_+=`{}\[\]\-|\\:;'<>,.\/? ])+/g, "" );
 
-  // Checking value to have 11 digits only
+  // CheckIng value to have 11 digits only
   if ( value.length !== 11 ) {
     return false;
   }
@@ -352,7 +352,7 @@ $.validator.addMethod( "cnpjBR", function( value, element ) {
 	// Removing no number
 	value = value.replace( /[^\d]+/g, "" );
 
-	// Checking value to have 14 digits only
+	// CheckIng value to have 14 digits only
 	if ( value.length !== 14 ) {
 		return false;
 	}
@@ -427,7 +427,7 @@ $.validator.addMethod( "cpfBR", function( value, element ) {
 	// Removing special characters from value
 	value = value.replace( /([~!@#$%^&*()_+=`{}\[\]\-|\\:;'<>,.\/? ])+/g, "" );
 
-	// Checking value to have 11 digits only
+	// CheckIng value to have 11 digits only
 	if ( value.length !== 11 ) {
 		return false;
 	}
@@ -446,7 +446,7 @@ $.validator.addMethod( "cpfBR", function( value, element ) {
 		return ( result === cn );
 	};
 
-	// Checking for dump data
+	// CheckIng for dump data
 	if ( value === "" ||
 		value === "00000000000" ||
 		value === "11111111111" ||
@@ -601,12 +601,12 @@ $.validator.addMethod( "creditcardtypes", function( value, element, param ) {
  *
  *  <input class="currencyInput" name="currencyInput">
  *
- * Soft symbol checking
+ * Soft symbol CheckIng
  *  currencyInput: {
  *     currency: ["$", false]
  *  }
  *
- * Strict symbol checking (default)
+ * Strict symbol CheckIng (default)
  *  currencyInput: {
  *     currency: "$"
  *     //OR
@@ -824,7 +824,7 @@ $.validator.addMethod( "iban", function( value, element ) {
 	// This prevents false negatives, while almost all
 	// false positives introduced by this, will be caught
 	// by the checksum validation below anyway.
-	// Strict checking should return FALSE for unknown
+	// Strict CheckIng should return FALSE for unknown
 	// countries.
 	if ( typeof bbanpattern !== "undefined" ) {
 		ibanregexp = new RegExp( "^[A-Z]{2}\\d{2}" + bbanpattern + "$", "" );
@@ -1097,7 +1097,7 @@ $.validator.addMethod( "nisBR", function( value ) {
 	// Removing special characters from value
 	value = value.replace( /([~!@#$%^&*()_+=`{}\[\]\-|\\:;'<>,.\/? ])+/g, "" );
 
-	// Checking value to have 11 digits only
+	// CheckIng value to have 11 digits only
 	if ( value.length !== 11 ) {
 		return false;
 	}

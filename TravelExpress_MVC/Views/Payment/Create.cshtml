@@ -1,37 +1,38 @@
 ﻿@model TravelExpress.Models.Payment
 
 @{
-	ViewBag.Title = "Make Payment";
+    ViewBag.Title = "Make Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="container mt-4">
+    <h2 class="mb-4 text-primary">Make Payment</h2>
 
-<h2> Make Payment </h2>
+    <form asp-action="Create" method="post" class="shadow p-4 bg-light rounded">
+        @Html.AntiForgeryToken()
 
+        <input type="hidden" asp-for="BookingId" />
+        <input type="hidden" asp-for="HotelId" />
 
-<form asp-action="Create" method="post">
-	<input type="hidden" asp-for="BookingId" />
-	<input type="hidden" asp-for="HotelId" />
+        <div class="mb-3">
+            <label asp-for="PaymentMethod" class="form-label"></label>
+            @Html.DropDownListFor(model => model.PaymentMethod,
+                     new SelectList(ViewBag.PaymentMethods as IEnumerable<string> ?? new List<string>()),
+                     "-- Select Payment Method --",
+                     new { @class = "form-control" })
+            <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+        </div>
 
-	<div class="form-group">
-		<label asp-for="PaymentDate"></label>
-		<input asp-for="PaymentDate" class="form-control" type="date" />
-		<span asp-validation-for="PaymentDate" class="text-danger"></span>
-	</div>
+        <div class="mb-3">
+            <label asp-for="Amount" class="form-label"></label>
+            <input asp-for="Amount" class="form-control" readonly />
+            <span asp-validation-for="Amount" class="text-danger"></span>
+        </div>
 
-	<div class="form-group">
-		<label asp-for="PaymentMethod"></label>
-		@Html.DropDownListFor(model => model.PaymentMethod,
-					new SelectList(ViewBag.PaymentMethods),
-					"-- Select Payment Method --",
-					new { @class = "form-control" })
-		<span asp-validation-for="PaymentMethod" class="text-danger"></span>
-	</div>
-
-	<div class="form-group">
-		<label asp-for="Amount"></label>
-		<input asp-for="Amount" class="form-control" readonly />
-		<span asp-validation-for="Amount" class="text-danger"></span>
-	</div>
-	<button type="submit" class="btn btn-primary"> Pay </button>
-	<a asp-controller="Booking" asp-action="Details" asp-route-id="@Model.BookingId" class="btn btn-secondary"> Cancel </a>
-</form>
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-success">Pay Now</button>
+            <a asp-controller="Booking" asp-action="Details" asp-route-id="@Model.BookingId"
+               class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<TravelExpress.Models.Room>
+
+@{
+    ViewData["Title"] = "Available Rooms";
+    DateTime checkIn = ViewBag.CheckIn != null ? (DateTime)ViewBag.CheckIn : DateTime.Today;
+    DateTime checkOut = ViewBag.CheckOut != null ? (DateTime)ViewBag.CheckOut : DateTime.Today.AddDays(1);
+    string hotelName = ViewBag.HotelName as string ?? "Hotel";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-3">Available Rooms in <span class="text-primary">@hotelName</span></h2>
+
+    <div class="mb-4">
+        <strong>Check-In:</strong> @checkIn.ToString("dd MMM yyyy")<br />
+        <strong>Check-Out:</strong> @checkOut.ToString("dd MMM yyyy")
+    </div>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning">No rooms available for the selected dates.</div>
+    }
+    else
+    {
+        <table class="table table-hover table-bordered shadow">
+            <thead class="table-dark">
+                <tr>
+                    <th>Room Number</th>
+                    <th>Room Type</th>
+                    <th>Price/Night</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var room in Model)
+                {
+                    <tr>
+                        <td>@room.RoomNumber</td>
+                        <td>@room.RoomType</td>
+                        <td>₹@room.PricePerNight</td>
+                        <td>
+                            <form method="post" asp-controller="Booking" asp-action="CreateDirect">
+                                <input type="hidden" name="roomId" value="@room.RoomId" />
+                                <input type="hidden" name="checkIn" value="@checkIn.ToString("yyyy-MM-dd")" />
+                                <input type="hidden" name="checkOut" value="@checkOut.ToString("yyyy-MM-dd")" />
+                                <button type="submit" class="btn btn-success">Book Room</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    
+
+    
+    }
+</div>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function () {
+                const btn = this.querySelector('button[type="submit"]');
+                if (btn) {
+                    btn.disabled = true;
+                    btn.innerText = "Booking...";
+                }
+            });
+        });
+    </script>
+}

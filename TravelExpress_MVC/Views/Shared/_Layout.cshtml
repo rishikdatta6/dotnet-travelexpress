@@ -1,6 +1,24 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
     var isHomePage = ViewData["Title"]?.ToString() == "Home Page";
+    bool isAdmin = false;
+    string userName = "";
+
+    if (SignInManager.IsSignedIn(User))
+    {
+        var currentUser = await UserManager.GetUserAsync(User);
+        if (currentUser != null)
+        {
+            var roles = await UserManager.GetRolesAsync(currentUser);
+            isAdmin = roles.Contains("Admin");
+            userName = currentUser.Name;
+        }
+    }
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +32,7 @@
 <body class="d-flex flex-column min-vh-100 @(isHomePage ? "home-page" : "")">
 
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TravelExpress</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
@@ -24,14 +42,83 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+
+                        @*@if (SignInManager.IsSignedIn(User))
+                        {
+                            if (isAdmin)
+                            {
+                                <!-- Admin sees Manage Hotels -->
+                                <!-- Admin sees Room Management -->
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Hotel" asp-action="Index">Hotel Dashboard</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <!-- User sees Search Hotels -->
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Hotel" asp-action="Index">Search Hotels</a>
+                                </li>
+                            }
+                        }*@
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Hotel" asp-action="Index">Hotel</a>
+                            <a class="nav-link text-dark" asp-controller="Hotel" asp-action="Index">Hotels</a>
                         </li>
+                    </ul>
+
+
+                    <ul class="navbar-nav">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index">
+                                    Hello, @userName
+                                </a>
+                            </li>
+
+                            @if (isAdmin)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Hotel" asp-action="Index">Manage Hotels</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Booking" asp-action="AdminIndex">All Bookings</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Payment" asp-action="AdminIndex">All Payments</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Booking" asp-action="MyBookings">My Bookings</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Payment" asp-action="MyPayments">My Payments</a>
+                                </li>
+                            }
+
+                            <li class="nav-item">
+                                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" method="post" id="logoutForm">
+                                    <button type="submit" class="nav-link btn btn-link text-dark" style="cursor:pointer;">Logout</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
