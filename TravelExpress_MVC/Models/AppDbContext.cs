@@ -18,9 +18,9 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
         base.OnModelCreating(modelBuilder);
 
         // ✅ Define Room → Hotel relationship
-        modelBuilder.Entity<Room>()
-            .HasOne(r => r.Hotel)
-            .WithMany(h => h.Rooms)
-            .HasForeignKey(r => r.HotelId);
+        //modelBuilder.Entity<Room>()
+        //    .HasOne(r => r.Hotel)
+        //    .WithMany(h => h.Rooms)
+        //    .HasForeignKey(r => r.HotelId);
     }
 }

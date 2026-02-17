@@ -14,6 +14,6 @@ namespace TravelExpress.Models
         public string Location { get;set; }
 
         
-        public ICollection<Room> Rooms { get; set; }
+        //public ICollection<Room> Rooms { get; set; }
     }
 }

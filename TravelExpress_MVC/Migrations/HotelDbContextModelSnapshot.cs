@@ -266,27 +266,6 @@ namespace TravelExpress.Migrations
                     b.ToTable("Bookings");
                 });
 
-            modelBuilder.Entity("TravelExpress.Models.Hotel", b =>
-                {
-                    b.Property<int>("HotelId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HotelId"));
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("HotelId");
-
-                    b.ToTable("Hotel");
-                });
-
             modelBuilder.Entity("TravelExpress.Models.Payment", b =>
                 {
                     b.Property<int>("PaymentId")
@@ -341,8 +320,6 @@ namespace TravelExpress.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("RoomId");
-
-                    b.HasIndex("HotelId");
 
                     b.ToTable("Rooms");
                 });
@@ -428,25 +405,9 @@ namespace TravelExpress.Migrations
                     b.Navigation("Booking");
                 });
 
-            modelBuilder.Entity("TravelExpress.Models.Room", b =>
-                {
-                    b.HasOne("TravelExpress.Models.Hotel", "Hotel")
-                        .WithMany("Rooms")
-                        .HasForeignKey("HotelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Hotel");
-                });
-
             modelBuilder.Entity("TravelExpress.Models.Booking", b =>
                 {
                     b.Navigation("Payment");
-                });
-
-            modelBuilder.Entity("TravelExpress.Models.Hotel", b =>
-                {
-                    b.Navigation("Rooms");
                 });
 
             modelBuilder.Entity("TravelExpress.Models.Room", b =>

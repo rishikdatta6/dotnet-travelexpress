@@ -18,7 +18,7 @@ namespace TravelExpress.Models
         [Required]
         public int HotelId { get; set; }
 
-        public Hotel? Hotel { get; set; }
+        //public Hotel? Hotel { get; set; }
 
         // ✅ Add this back to resolve the "Bookings missing" error
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
