@@ -5,28 +5,38 @@ using TravelExpress.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ✅ Fly-compatible port binding
+// Fly port
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 
-// MVC + Razor
+// MVC
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-// ✅ SQL ONLY in Development
-if (builder.Environment.IsDevelopment())
+// --------------------
+// DATABASE + IDENTITY
+// --------------------
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+if (!string.IsNullOrEmpty(connectionString))
 {
     builder.Services.AddDbContext<AppDbContext>(options =>
-        options.UseSqlServer(
-            builder.Configuration.GetConnectionString("DefaultConnection")));
+        options.UseSqlServer(connectionString));
 
     builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
         options.SignIn.RequireConfirmedAccount = false)
         .AddRoles<IdentityRole>()
         .AddEntityFrameworkStores<AppDbContext>();
 }
+else
+{
+    // ✅ Identity WITHOUT database (prevents DI crash)
+    builder.Services.AddDefaultIdentity<ApplicationUser>()
+        .AddRoles<IdentityRole>()
+        .AddDefaultTokenProviders();
+}
 
-// HTTP client
+// HTTP Client
 builder.Services.AddHttpClient<HotelApiService>();
 
 builder.Services.AddAuthorization(options =>
@@ -37,12 +47,13 @@ builder.Services.AddAuthorization(options =>
 
 var app = builder.Build();
 
-// ✅ Seed ONLY in Development
-if (app.Environment.IsDevelopment())
+// --------------------
+// SEED ONLY IF DB EXISTS
+// --------------------
+if (app.Environment.IsDevelopment() && !string.IsNullOrEmpty(connectionString))
 {
     using var scope = app.Services.CreateScope();
-    var services = scope.ServiceProvider;
-    await SeedData.Initialize(services);
+    await SeedData.Initialize(scope.ServiceProvider);
 }
 
 // Middleware
