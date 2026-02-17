@@ -1,0 +1,15 @@
+﻿@model TravelExpress.Models.Room
+
+<h2 class="text-centre">Room Details</h2>
+
+<div class="card mt-3">
+    <div class="card-body">
+        <p class="card-text"><strong>Room Number:</strong> @Model.RoomNumber</p>
+        <p class="card-text"><strong>Room Type:</strong> @Model.RoomType</p>
+        <p class="card-text"><strong>Price Per Night:</strong> ₹@Model.PricePerNight</p>
+        <p class="card-text"><strong>Hotel Name:</strong> @ViewBag.HotelName</p>
+        <p class="card-text"><strong>Location:</strong> @ViewBag.HotelLocation</p>
+    </div>
+</div>
+
+<a asp-action="Index" asp-route-hotelId="@Model.HotelId" class="btn btn-secondary mt-3">Back to List</a>

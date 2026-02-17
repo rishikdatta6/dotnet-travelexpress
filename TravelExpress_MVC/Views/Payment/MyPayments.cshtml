@@ -1,0 +1,37 @@
+﻿@model List<TravelExpress.ViewModels.PaymentWithHotelViewModel>
+
+<div class="container mt-4">
+    <h2 class="mt-3 mb-4">💳 All Payments</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">No payments found yet.</div>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead style="background-color: green; color: white;">
+                <tr>
+                    <th>Hotel</th>
+                    <th>Room Number</th>
+                    <th>Amount</th>
+                    <th>Payment Method</th>
+                    <th>Payment Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var payment in Model)
+                {
+                    <tr>
+                        <td>@payment.HotelName</td>
+                        <td>@payment.RoomNumber</td>
+                        <td>₹@payment.Amount</td>
+                        <td>@payment.PaymentMethod</td>
+                        <td>@payment.PaymentDate.ToString("dd MMM yyyy")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    <a asp-controller="Hotel" asp-action="Index" class="btn btn-secondary">Back to Dashboard</a>
+</div>

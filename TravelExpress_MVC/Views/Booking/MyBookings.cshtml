@@ -1,0 +1,41 @@
+﻿@model List<TravelExpress.ViewModels.BookingWithHotelViewModel>
+
+<div class="container mt-4">
+    <h2 class="mt-3 mb-4">📖 My Bookings</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">You have no bookings yet.</div>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead style="background-color: yellow; color: black;">
+                <tr>
+                    <th>Hotel</th>
+                    <th>Room Type</th>
+                    <th>Room Number</th>
+                    <th>Check-In</th>
+                    <th>Check-Out</th>
+                    <th>Total Amount</th>
+                    <th>Booking Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var booking in Model)
+                {
+                    <tr>
+                        <td>@(booking.HotelName ?? "Unknown Hotel")</td>
+                        <td>@booking.RoomType</td>
+                        <td>@booking.RoomNumber</td>
+                        <td>@booking.CheckIn.ToString("dd MMM yyyy")</td>
+                        <td>@booking.CheckOut.ToString("dd MMM yyyy")</td>
+                        <td>₹@booking.TotalAmount</td>
+                        <td>@booking.BookingDate.ToString("dd MMM yyyy")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    <a asp-controller="Hotel" asp-action="Index" class="btn btn-secondary">Back to Dashboard</a>
+</div>

@@ -1,0 +1,89 @@
+﻿@model TravelExpress.Models.Booking
+
+@{
+	ViewBag.Title = "Create Booking";
+}
+
+<h2>Create Booking</h2>
+
+<form asp-action="Create" method="post" id="bookingForm">
+	@Html.AntiForgeryToken()
+	<input type="hidden" asp-for="RoomId" />
+
+	<div class="form-group">
+		<label asp-for="CheckIn"></label>
+		<input asp-for="CheckIn" id="CheckIn" class="form-control" type="date" />
+		<span asp-validation-for="CheckIn" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="CheckOut"></label>
+		<input asp-for="CheckOut" id="CheckOut" class="form-control" type="date" />
+		<span asp-validation-for="CheckOut" class="text-danger"></span>
+	</div>
+
+	<div id="availabiltyStatus" class="mt-2 text-info"></div>
+
+	<button type="submit" class="btn btn-primary" id="submitBtn">Book Now</button>
+	<a asp-action="Details" asp-controller="Room" asp-route-id="@Model.RoomId" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+	<!-- Client-side validation support -->
+	<partial name="_ValidationScriptsPartial" />
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const CheckInInput = document.getElementById('CheckIn');
+			const CheckOutInput = document.getElementById('CheckOut');
+			const statusDiv = document.getElementById('availabiltyStatus');
+			const roomId = '@Model.RoomId';
+
+			function areBothDatesFilled() {
+				return CheckInInput.value && CheckOutInput.value;
+			}
+
+			async function checkAvailability() {
+				if (!areBothDatesFilled()) {
+					statusDiv.textContent = '';
+					return;
+				}
+
+				const CheckIn = CheckInInput.value;
+				const CheckOut = CheckOutInput.value;
+
+				try {
+					const response = await fetch(`/Booking/CheckAvailability?roomId=${roomId}&CheckIn=${CheckIn}&CheckOut=${CheckOut}`);
+					const data = await response.json();
+
+					if (!data.available) {
+						statusDiv.textContent = 'This room is already booked for selected dates.';
+						statusDiv.style.color = 'red';
+					} else {
+						statusDiv.textContent = 'Room is available!';
+						statusDiv.style.color = 'green';
+					}
+				} catch (error) {
+					console.error('Error checking availability:', error);
+					statusDiv.textContent = '';
+				}
+			}
+
+			CheckInInput.addEventListener('change', checkAvailability);
+			CheckOutInput.addEventListener('change', checkAvailability);
+		});
+	</script>
+
+	<script>
+		document.getElementById('bookingForm').addEventListener('submit', function (e) {
+			const form = this;
+			const submitBtn = document.getElementById('submitBtn');
+
+			// Only disable if valid
+			if (form.checkValidity()) {
+				submitBtn.disabled = true;
+				submitBtn.textContent = "Processing...";
+			}
+		});
+	</script>
+}

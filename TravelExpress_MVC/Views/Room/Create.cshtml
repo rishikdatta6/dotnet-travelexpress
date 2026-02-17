@@ -1,0 +1,46 @@
+﻿@model TravelExpress.Models.Room
+
+@{
+    ViewData["Title"] = "Create Room";
+}
+
+<h2>Create Room</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="HotelId" />
+
+    <div class="form-group">
+        <label asp-for="RoomNumber"></label>
+        <input asp-for="RoomNumber" class="form-control" />
+        <span asp-validation-for="RoomNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="RoomType"></label>
+        <select asp-for="RoomType" class="form-control" asp-items="Html.GetEnumSelectList<TravelExpress.Models.RoomType>()">
+            <option value="">-- Select Room Type --</option>
+        </select>
+        <span asp-validation-for="RoomType" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="PricePerNight" />
+
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a asp-action="Index" asp-route-hotelId="@Model.HotelId" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

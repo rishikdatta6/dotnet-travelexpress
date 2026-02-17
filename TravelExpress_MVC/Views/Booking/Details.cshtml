@@ -1,0 +1,24 @@
+﻿@model TravelExpress.Models.Booking
+
+
+@{
+	ViewBag.Title = "Booking Details";
+}
+
+<h2> Booking Details </h2>
+
+<div>
+	<p><strong>Room:</strong> @Model.Room?.RoomNumber </p>
+	<p><strong> Check In:</strong> @Model.CheckIn.ToShortDateString()</p>
+	<p><strong> Check Out: </strong> @Model.CheckOut.ToShortDateString()</p>
+</div>
+
+
+@if(Model.Payment==null)
+{
+	<a asp-controller="Payment" asp-action="Create" asp-route-bookingId="@Model.BookingId" class="btn btn-success"> Proceed to Payment </a>
+}
+else
+{
+	<a asp-controller="Payment" asp-action="Details" asp-route-id="@Model.Payment.PaymentId" class="btn btn-info"> View Payment </a>
+}

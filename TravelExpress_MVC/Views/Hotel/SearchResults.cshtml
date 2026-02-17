@@ -1,0 +1,57 @@
+﻿@model IEnumerable<TravelExpress.Models.HotelApi>
+
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    bool isUser = false;
+    if (SignInManager.IsSignedIn(User))
+    {
+        var currentUser = await UserManager.GetUserAsync(User);
+        if (currentUser != null)
+        {
+            var roles = await UserManager.GetRolesAsync(currentUser);
+            isUser = roles.Contains("User");
+        }
+    }
+}
+
+<h2 class="mb-4">Hotels in @ViewBag.Location</h2>
+
+@**<p class="text-muted">
+    Check-in: @((DateTime)ViewBag.CheckIn).ToShortDateString() |
+    Check-out: @((DateTime)ViewBag.CheckOut).ToShortDateString()
+</p>**@
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning">No hotels found in this location.</div>
+}
+else if (!isUser)
+{
+    <!-- 🔒 Admins or unassigned roles should see this -->
+    <div class="alert alert-danger">You are not authorized to view search results.</div>
+}
+else
+{
+    <div class="row">
+        @foreach (var hotel in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">@hotel.Name</h5>
+                        <p class="card-text">@hotel.Location</p>
+                        <a asp-controller="Room"
+                           asp-action="UserRoomDetails"
+                           asp-route-hotelId="@hotel.HotelId"
+                           asp-route-checkIn="@ViewBag.CheckIn"
+                           asp-route-checkOut="@ViewBag.CheckOut"
+                           class="btn btn-primary btn-sm">View Rooms</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
