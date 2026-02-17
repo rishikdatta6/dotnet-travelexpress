@@ -17,6 +17,23 @@ A full-stack hotel booking application built using ASP.NET Core MVC with role-ba
 - REST APIs
 - Git
 
+## Authentication & Demo Access
+
+### Admin Access (Pre-seeded)
+To manage hotels, rooms, bookings, and payments:
+
+Email: admin@travelexpress.com  
+Password: Admin@123  
+
+### User Access
+Users are required to register using the Register page.
+After registration, users can:
+- Browse hotels
+- Search available rooms
+- Book rooms
+- Make payments
+- View their bookings and payments
+
 ## Status
 Backend complete. Frontend enhancements in progress
 <img width="2559" height="1527" alt="image" src="https://github.com/user-attachments/assets/ea0dc739-3b72-4091-935b-b3c56893f072" />
