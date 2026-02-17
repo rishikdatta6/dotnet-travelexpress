@@ -4,10 +4,7 @@ using TravelExpress.Models;
 using TravelExpress.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenAnyIP(8080);
-});
+builder.WebHost.UseUrls("http://0.0.0.0:8080");
 
 // Add services to the container
 builder.Services.AddControllersWithViews();
@@ -46,7 +43,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
