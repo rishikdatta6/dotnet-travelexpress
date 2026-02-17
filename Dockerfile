@@ -1,16 +1,20 @@
+# Runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 8080
 
+# Build image
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY . .
 WORKDIR /src/TravelExpress_MVC
-RUN dotnet restore
-RUN dotnet publish -c Release -o /app/publish
+RUN dotnet restore TravelExpress.csproj
+RUN dotnet publish TravelExpress.csproj -c Release -o /app/publish
 
+# Final image
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "TravelExpress_MVC.dll"]
+ENTRYPOINT ["dotnet", "TravelExpress.dll"]
+
 
