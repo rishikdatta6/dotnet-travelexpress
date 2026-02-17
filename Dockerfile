@@ -1,20 +1,22 @@
-# Runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-WORKDIR /app
-EXPOSE 8080
-
-# Build image
+# Build stage
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
+
+# copy csproj correctly
+COPY TravelExpress_MVC/TravelExpress.csproj ./TravelExpress_MVC/
+RUN dotnet restore ./TravelExpress_MVC/TravelExpress.csproj
+
+# copy everything else
 COPY . .
 WORKDIR /src/TravelExpress_MVC
-RUN dotnet restore TravelExpress.csproj
-RUN dotnet publish TravelExpress.csproj -c Release -o /app/publish
+RUN dotnet publish -c Release -o /app/publish
 
-# Final image
-FROM base AS final
+# Runtime stage
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/publish .
+EXPOSE 8080
+ENV ASPNETCORE_URLS=http://+:8080
 ENTRYPOINT ["dotnet", "TravelExpress.dll"]
 
 
