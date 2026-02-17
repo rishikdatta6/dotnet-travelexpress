@@ -14,10 +14,18 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
 // DB
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+//builder.Services.AddDbContext<AppDbContext>(options =>
+//    options.UseSqlServer(connectionString));
+
+// DB (Fly Postgres)
+var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(connectionString));
+{
+    options.UseNpgsql(databaseUrl);
+});
 
 // Identity
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
@@ -39,10 +47,10 @@ builder.Services.AddAuthorization(options =>
 var app = builder.Build();
 
 // ❌ DISABLE SEED FOR NOW
-// using (var scope = app.Services.CreateScope())
-// {
-//     await SeedData.Initialize(scope.ServiceProvider);
-// }
+ using (var scope = app.Services.CreateScope())
+{
+    await SeedData.Initialize(scope.ServiceProvider);
+}
 
 app.UseStaticFiles();
 app.UseRouting();
