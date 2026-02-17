@@ -37,10 +37,19 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Middleware pipeline
-if (!app.Environment.IsDevelopment())
+//if (!app.Environment.IsDevelopment())
+//{
+//    app.UseExceptionHandler("/Home/Error");
+//    app.UseHsts();
+//}
+// Seed roles & users (DEV ONLY)
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        await SeedData.Initialize(services);
+    }
 }
 
 //app.UseHttpsRedirection();
