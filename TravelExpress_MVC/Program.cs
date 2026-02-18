@@ -24,19 +24,17 @@ builder.Services.AddRazorPages();
 // DB (Fly Postgres)
 var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
-if (string.IsNullOrEmpty(databaseUrl))
-{
-    throw new Exception("DATABASE_URL not found");
-}
-
-var npgsqlBuilder = new NpgsqlConnectionStringBuilder(databaseUrl)
+var connectionString = new NpgsqlConnectionStringBuilder(databaseUrl)
 {
     SslMode = SslMode.Require,
     TrustServerCertificate = true
-};
+}.ToString();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(npgsqlBuilder.ConnectionString));
+{
+    options.UseNpgsql(connectionString);
+});
+
 
 
 // Identity
