@@ -47,10 +47,10 @@ builder.Services.AddAuthorization(options =>
 var app = builder.Build();
 
 // ❌ DISABLE SEED FOR NOW
-using (var scope = app.Services.CreateScope())
-{
-    await SeedData.Initialize(scope.ServiceProvider);
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    await SeedData.Initialize(scope.ServiceProvider);
+//}
 
 app.UseStaticFiles();
 app.UseRouting();
