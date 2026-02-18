@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TravelExpress.Models;
 using TravelExpress.Services;
+using Npgsql;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,10 +24,20 @@ builder.Services.AddRazorPages();
 // DB (Fly Postgres)
 var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
-builder.Services.AddDbContext<AppDbContext>(options =>
+if (string.IsNullOrEmpty(databaseUrl))
 {
-    options.UseNpgsql(databaseUrl);
-});
+    throw new Exception("DATABASE_URL not found");
+}
+
+var npgsqlBuilder = new NpgsqlConnectionStringBuilder(databaseUrl)
+{
+    SslMode = SslMode.Require,
+    TrustServerCertificate = true
+};
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(npgsqlBuilder.ConnectionString));
+
 
 // Identity
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
