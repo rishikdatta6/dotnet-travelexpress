@@ -24,11 +24,17 @@ builder.Services.AddRazorPages();
 // DB (Fly Postgres)
 var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
+if (string.IsNullOrEmpty(databaseUrl))
+{
+    throw new Exception("DATABASE_URL is not set");
+}
+
 var connectionString = new NpgsqlConnectionStringBuilder(databaseUrl)
 {
     SslMode = SslMode.Require,
     TrustServerCertificate = true
 }.ToString();
+
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
@@ -57,10 +63,10 @@ builder.Services.AddAuthorization(options =>
 var app = builder.Build();
 
 // ❌ DISABLE SEED FOR NOW
-//using (var scope = app.Services.CreateScope())
-//{
-//    await SeedData.Initialize(scope.ServiceProvider);
-//}
+using (var scope = app.Services.CreateScope())
+{
+    await SeedData.Initialize(scope.ServiceProvider);
+}
 
 app.UseStaticFiles();
 app.UseRouting();
