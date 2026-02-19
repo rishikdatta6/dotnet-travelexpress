@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using TravelExpress.Models;
 using TravelExpress.Services;
 
@@ -22,19 +23,24 @@ builder.Services.AddRazorPages();
 // --------------------
 var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
-if (string.IsNullOrEmpty(databaseUrl))
+if (!string.IsNullOrEmpty(databaseUrl))
 {
-    throw new Exception("DATABASE_URL is not set");
-}
-
-// ✅ IMPORTANT: pass DATABASE_URL directly
-builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    options.UseNpgsql(databaseUrl, o =>
+    // Fly.io → Postgres
+    var connString = new NpgsqlConnectionStringBuilder(databaseUrl)
     {
-        o.EnableRetryOnFailure();
-    });
-});
+        SslMode = SslMode.Require
+    }.ToString();
+
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseNpgsql(connString));
+}
+else
+{
+    // Local → Postgres (NOT SQL Server)
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseNpgsql(
+            builder.Configuration.GetConnectionString("DefaultConnection")));
+}
 
 // --------------------
 // Identity
