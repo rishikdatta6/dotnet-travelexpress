@@ -28,10 +28,10 @@ builder.Services.AddAuthorization();
 var app = builder.Build();
 
 // Seed (keep commented for now)
-//using (var scope = app.Services.CreateScope())
-//{
-//    await SeedData.Initialize(scope.ServiceProvider);
-//}
+using (var scope = app.Services.CreateScope())
+{
+    await SeedData.Initialize(scope.ServiceProvider);
+}
 
 app.UseStaticFiles();
 app.UseRouting();
