@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
-
+using Microsoft.EntityFrameworkCore;
+using TravelExpress.Models;
 public static class SeedData
 {
     public static async Task Initialize(IServiceProvider serviceProvider)
     {
         var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
         var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        var context = serviceProvider.GetRequiredService<AppDbContext>();
 
         string[] roleNames = { "Admin", "User" };
 
@@ -58,6 +60,19 @@ public static class SeedData
             {
                 await userManager.AddToRoleAsync(newUser, "User");
             }
+        }
+        // ✅ Step 4: Seed Hotels (ONE TIME)
+        if (!context.Hotels.Any())
+        {
+            context.Hotels.AddRange(
+                new Hotel { Name = "Paradise Resort", Location = "Goa" },
+                new Hotel { Name = "Sunshine Castle", Location = "Kerala" },
+                new Hotel { Name = "Dreams of Heaven", Location = "San Francisco" },
+                new Hotel { Name = "Fantastico de Hotel", Location = "Barcelona" },
+                new Hotel { Name = "Boulevard of Dreams", Location = "Paris" }
+            );
+
+            await context.SaveChangesAsync();
         }
     }
 }

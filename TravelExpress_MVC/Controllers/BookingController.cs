@@ -16,9 +16,9 @@ namespace TravelExpress.Controllers
     {
         private readonly AppDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly HotelApiService _hotelService;
+        private readonly HotelService _hotelService;
 
-        public BookingController(AppDbContext context, UserManager<ApplicationUser> userManager, HotelApiService hotelService)
+        public BookingController(AppDbContext context, UserManager<ApplicationUser> userManager, HotelService hotelService)
         {
             _context = context;
             _userManager = userManager;
@@ -128,7 +128,7 @@ namespace TravelExpress.Controllers
                 return Unauthorized();
             }
 
-            // ✅ Get hotel from HotelApiService instead of EF
+            // ✅ Get hotel from HotelService instead of EF
             var hotel = await _hotelService.GetHotelByIdAsync(booking.Room.HotelId);
 
             var bookingViewModel = new BookingWithHotelViewModel

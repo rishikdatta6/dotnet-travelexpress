@@ -11,11 +11,11 @@ namespace TravelExpress.Controllers
 {
     public class HotelController : Controller
     {
-        private readonly HotelApiService _hotelService;
+        private readonly HotelService _hotelService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public HotelController(HotelApiService hotelService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public HotelController(HotelService hotelService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _hotelService = hotelService;
             _userManager = userManager;

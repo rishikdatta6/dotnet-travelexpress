@@ -15,16 +15,16 @@ namespace TravelExpress.Controllers
     {
         private readonly AppDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly HotelApiService _hotelApiService;
+        private readonly HotelService _HotelService;
 
        
 
 
-        public RoomController(AppDbContext context, UserManager<ApplicationUser> userManager, HotelApiService hotelService)
+        public RoomController(AppDbContext context, UserManager<ApplicationUser> userManager, HotelService hotelService)
         {
             _context = context;
             _userManager = userManager;
-            _hotelApiService = hotelService;
+            _HotelService = hotelService;
         }
 
         // 🟢 Admin-only: View all rooms
@@ -49,8 +49,8 @@ namespace TravelExpress.Controllers
                 return NotFound();
             }
 
-            // 🔄 Fetch hotel via HotelApiService
-            var hotel = await _hotelApiService.GetHotelByIdAsync(room.HotelId);
+            // 🔄 Fetch hotel via HotelService
+            var hotel = await _HotelService.GetHotelByIdAsync(room.HotelId);
 
             // 👇 Pass hotel info using ViewBag
             ViewBag.HotelName = hotel?.Name ?? "Unknown";
@@ -189,7 +189,7 @@ namespace TravelExpress.Controllers
                 return RedirectToAction("Index", "Hotel");
             }
 
-            var hotel = await _hotelApiService.GetHotelByIdAsync(hotelId);
+            var hotel = await _HotelService.GetHotelByIdAsync(hotelId);
             ViewBag.HotelName = hotel?.Name ?? "Unknown";
             ViewBag.CheckIn = checkIn;
             ViewBag.CheckOut = checkOut;

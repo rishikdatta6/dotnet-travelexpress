@@ -16,10 +16,10 @@ namespace TravelExpress.Controllers
     {
         private readonly AppDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly HotelApiService _hotelService;
+        private readonly HotelService _hotelService;
 
 
-        public PaymentController(AppDbContext context, UserManager<ApplicationUser> userManager, HotelApiService hotelService)
+        public PaymentController(AppDbContext context, UserManager<ApplicationUser> userManager, HotelService hotelService)
         {
             _context = context;
             _userManager = userManager;
