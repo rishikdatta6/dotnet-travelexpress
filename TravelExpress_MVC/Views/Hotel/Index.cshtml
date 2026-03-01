@@ -4,6 +4,12 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
+<div class="alert alert-info">
+    <strong>Demo Credentials</strong><br />
+    Admin: admin@travelexpress.com / Admin@123<br />
+    User: user@travelexpress.com / User@123
+</div>
+
 @{
     bool isUser = false;
     var today = DateTime.Today.ToString("yyyy-MM-dd");
