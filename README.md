@@ -4,7 +4,7 @@
 **role-based authentication, booking workflows, and Azure deployment**.
 
 ## 🔗 Live Demo
-👉 [View Live Application](https://travelexpress-xxxxx.azurewebsites.net)
+👉 [View Live Application]([https://travelexpress-xxxxx.azurewebsites.net](https://travelexpress-rishik-c2f2dya5bpftg6dk.centralindia-01.azurewebsites.net/))
 
 ---
 
