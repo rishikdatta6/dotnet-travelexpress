@@ -3,8 +3,8 @@
 **TravelExpress** is a full-stack **ASP.NET Core MVC application** that demonstrates  
 **role-based authentication, booking workflows, and Azure deployment**.
 
-🔗 **Live Demo**  
-https://travelexpress-rishik-c2f2dya5bpftg6dk.centralindia-01.azurewebsites.net
+## 🔗 Live Demo
+👉 [View Live Application](https://travelexpress-xxxxx.azurewebsites.net)
 
 ---
 
