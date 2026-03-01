@@ -22,7 +22,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 .AddRoles<IdentityRole>()
 .AddEntityFrameworkStores<AppDbContext>();
 
-builder.Services.AddHttpClient<HotelApiService>();
+builder.Services.AddScoped<HotelService>();
 builder.Services.AddAuthorization();
 
 var app = builder.Build();

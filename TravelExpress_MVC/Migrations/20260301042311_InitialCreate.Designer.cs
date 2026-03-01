@@ -12,7 +12,7 @@ using TravelExpress.Models;
 namespace TravelExpress.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260225085433_InitialCreate")]
+    [Migration("20260301042311_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -268,6 +268,27 @@ namespace TravelExpress.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("TravelExpress.Models.Hotel", b =>
+                {
+                    b.Property<int>("HotelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HotelId"));
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("HotelId");
+
+                    b.ToTable("Hotels");
                 });
 
             modelBuilder.Entity("TravelExpress.Models.Payment", b =>
