@@ -1,49 +1,83 @@
-# TravelExpress – Hotel Booking System
+# TravelExpress – Hotel Booking Web App
 
-A full-stack hotel booking application built using ASP.NET Core MVC with role-based authentication and REST API integration.
+**TravelExpress** is a full-stack **ASP.NET Core MVC application** that demonstrates  
+**role-based authentication, booking workflows, and Azure deployment**.
 
-## Features
-- Role-based access control (Admin / User) using ASP.NET Identity
-- Hotel search and room booking workflow
-- Booking validation and availability management
-- Admin dashboard for managing rooms and bookings
-- External hotel data integration using REST APIs (JSON Server)
+## 🔗 Live Demo
+👉 [View Live Application](https://travelexpress-rishik-c2f2dya5bpftg6dk.centralindia-01.azurewebsites.net/)
 
-## Tech Stack
-- ASP.NET Core MVC
-- Entity Framework Core
-- SQL Server
-- ASP.NET Identity
-- REST APIs
-- Git
+---
 
-## Authentication & Demo Access
+## 🚀 Key Features
 
-### Admin Access (Pre-seeded)
-To manage hotels, rooms, bookings, and payments:
+- Role-based authentication (**Admin / User**)
+- Hotel browsing and search by location & dates
+- Room booking with date validation & price calculation
+- User booking & payment history
+- Admin dashboard for room, booking, and payment management
+- Deployed on **Microsoft Azure**
 
-Email: admin@travelexpress.com  
-Password: Admin@123  
+---
 
-### User Access
-Users are required to register using the Register page.
-After registration, users can:
-- Browse hotels
-- Search available rooms
-- Book rooms
-- Make payments
-- View their bookings and payments
+## 🔐 Demo Credentials
 
-## Status
-Backend complete. Frontend enhancements in progress
-<img width="2559" height="1527" alt="image" src="https://github.com/user-attachments/assets/ea0dc739-3b72-4091-935b-b3c56893f072" />
-<img width="2551" height="1517" alt="image" src="https://github.com/user-attachments/assets/c0e92499-779f-4a22-9cbc-f571d72cb51b" />
-<img width="2559" height="1529" alt="image" src="https://github.com/user-attachments/assets/9a19e267-f882-43fc-bfda-81c306216815" />
-<img width="2559" height="1529" alt="image" src="https://github.com/user-attachments/assets/2fb79d44-946d-49fb-803a-726ef48a3307" />
-<img width="2559" height="1532" alt="image" src="https://github.com/user-attachments/assets/df2d1324-4101-401c-84de-755ca84d5cf8" />
-<img width="2559" height="1528" alt="image" src="https://github.com/user-attachments/assets/b1d77e07-707a-4324-bbca-ef38b67ff02e" />
-<img width="2552" height="1530" alt="image" src="https://github.com/user-attachments/assets/57e7ce72-a108-46ef-9d83-b357b0e825a1" />
-<img width="2559" height="1525" alt="image" src="https://github.com/user-attachments/assets/81bc7dc7-fe63-4e6d-a148-881b12ee802b" />
-<img width="2557" height="1520" alt="image" src="https://github.com/user-attachments/assets/0b665fab-a8e9-4f93-aa32-a6d3c434dd3d" />
-<img width="2559" height="1529" alt="image" src="https://github.com/user-attachments/assets/1b1f46bd-3949-4434-9197-9927a757a1a7" />
-<img width="2548" height="1524" alt="image" src="https://github.com/user-attachments/assets/b5f06732-925d-4267-878f-51e9ce042c71" />
+**Admin**
+Email: admin@travelexpress.com
+Password: Admin@123
+
+**User**
+Email: user@travelexpress.com
+Password: User@123
+
+## 🛠 Tech Stack
+
+- **Backend:** ASP.NET Core MVC (.NET 8)
+- **Frontend:** Razor Views, Bootstrap
+- **Database:** Azure SQL Database
+- **Authentication:** ASP.NET Core Identity
+- **ORM:** Entity Framework Core
+- **Cloud:** Azure App Service
+- **Version Control:** Git & GitHub
+
+---
+
+## 📌 What This Project Demonstrates
+
+- Clean MVC architecture
+- Secure authentication & authorization
+- Real-world booking logic
+- Cloud deployment with Azure SQL
+- Production-ready full-stack workflow
+
+---
+
+## 👤 Author
+
+**Rishik Datta**  
+Full-Stack ASP.NET Developer (Fresher)
+
+<img width="2559" height="1531" alt="image" src="https://github.com/user-attachments/assets/4bd33ec9-00c5-433c-98a6-9a6541d75c0e" />
+<img width="2559" height="1530" alt="image" src="https://github.com/user-attachments/assets/c2cfd3b2-f925-4cbc-9f18-63f893201307" />
+<img width="2559" height="1525" alt="image" src="https://github.com/user-attachments/assets/56df7119-6d07-4065-b2d3-091c68abd668" />
+<img width="2559" height="1529" alt="image" src="https://github.com/user-attachments/assets/038a2e44-2666-4404-b6b4-ed3d4e6e3424" />
+<img width="2559" height="1526" alt="image" src="https://github.com/user-attachments/assets/668de19d-7175-4c8e-a183-c97fac49809d" />
+<img width="2559" height="1530" alt="image" src="https://github.com/user-attachments/assets/53f5ced2-d116-47e6-b2a8-23d51bfe7101" />
+<img width="2559" height="1524" alt="image" src="https://github.com/user-attachments/assets/f3616c67-308e-41bd-a630-d39e1e0f0dcb" />
+<img width="2559" height="1525" alt="image" src="https://github.com/user-attachments/assets/99d5f8b4-7b86-4a16-8206-f79131ef97be" />
+<img width="2558" height="1525" alt="image" src="https://github.com/user-attachments/assets/5cccc2d0-55b1-465c-be79-e0b426fed5a2" />
+<img width="2557" height="1524" alt="image" src="https://github.com/user-attachments/assets/7769a22a-1793-49eb-b420-17c48f7b4d07" />
+<img width="2559" height="1527" alt="image" src="https://github.com/user-attachments/assets/02c39998-1f7e-4fdd-863c-509eb309015f" />
+<img width="2557" height="1524" alt="image" src="https://github.com/user-attachments/assets/d8fd1706-a41e-49b8-9782-e4918f11186c" />
+<img width="2557" height="1520" alt="image" src="https://github.com/user-attachments/assets/a54b26ba-c828-4ead-a8b2-1596a7c201c3" />
+
+
+
+
+
+
+
+
+
+
+
+
