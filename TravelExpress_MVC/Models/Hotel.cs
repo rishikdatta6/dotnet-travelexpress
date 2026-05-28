@@ -4,6 +4,7 @@ namespace TravelExpress.Models
 {
     public class Hotel
     {
+        [Key]
         public int HotelId { get; set; }
 
 
