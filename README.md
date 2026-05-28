@@ -1,7 +1,7 @@
 # TravelExpress – Hotel Booking Web App
 
 **TravelExpress** is a full-stack **ASP.NET Core MVC application** that demonstrates  
-**role-based authentication, booking workflows, and Azure deployment**.
+**role-based authentication, booking workflows, and Railway deployment**.
 
 ## 🔗 Live Demo
 👉 [View Live Application](https://dntest-production.up.railway.app/)
@@ -15,7 +15,7 @@
 - Room booking with date validation & price calculation
 - User booking & payment history
 - Admin dashboard for room, booking, and payment management
-- Deployed on **Microsoft Azure**
+- Deployed on **Railway**
 
 ---
 
@@ -33,10 +33,10 @@ Password: User@123
 
 - **Backend:** ASP.NET Core MVC (.NET 8)
 - **Frontend:** Razor Views, Bootstrap
-- **Database:** Azure SQL Database
+- **Database:** PostgreSQL Database
 - **Authentication:** ASP.NET Core Identity
 - **ORM:** Entity Framework Core
-- **Cloud:** Azure App Service
+- **Cloud:** Railway App
 - **Version Control:** Git & GitHub
 
 ---
@@ -46,7 +46,7 @@ Password: User@123
 - Clean MVC architecture
 - Secure authentication & authorization
 - Real-world booking logic
-- Cloud deployment with Azure SQL
+- Cloud deployment with Railway PostgreSQL
 - Production-ready full-stack workflow
 
 ---
